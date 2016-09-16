@@ -7,6 +7,9 @@
 \usepackage{cleveref}
 \usepackage{textcomp}
 \usepackage{placeins}
+\usepackage[T1]{fontenc}
+\usepackage{gensymb}
+\usepackage[utf8]{inputenc}
 \graphicspath{{./figures/}}
 
 \title{Advanced Reactor Fuel cycle Molten Salt Reactor Design}
@@ -50,9 +53,26 @@ constructed. Funding for the MSR program was cut in favor of the liquid metal
 fast-breeder reactor (LMFBR) program. Consequently, as of today, the ARE,
 PWAR-1, and MSRE are the only critical MSRs ever operated.
 
-\section{Comprehensive, expensive (3D) models}
+\section{MSRE}
 
-\subsection{MSRE}
+\subsection{Salt properties}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[width=\textwidth]{salt_properties.png}
+  \caption{Composition and properties of fuel, flush, and coolant
+    salts. \cite{robertson_msre_1965}}
+  \label{fig:salt_properties}
+\end{figure}
+
+\subsection{Layout \& Equipment}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{flow_diagram.png}
+  \caption{Macroscopic layout of the MSRE \cite{robertson_msre_1965}}
+  \label{fig:MSRE_layout}
+\end{figure}
 
 \subsubsection{Reactor vessel}
 
@@ -63,7 +83,102 @@ PWAR-1, and MSRE are the only critical MSRs ever operated.
   \label{fig:MSRE_reactor}
 \end{figure}
 
-\subsection{MSBR}
+\subsection{Reactivity considerations}
+
+The MSRE has a negative temperature coefficient of 6.4 - 9.9 x $10^{-5}$
+($\Delta$k/k)/\textdegree F depending on the choice of
+fuel. \cite{robertson_msre_1965} The MSRE's three control rods have a combined
+worth of 5.6 - 7.6 \% $\Delta$k/k, again depending on the
+fuel. \cite{robertson_msre_1965}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{reactivity-losses.png}
+  \caption{Losses in reactivity associated with different
+    phenomena. \cite{robertson_msre_1965}}
+  \label{fig:reactivity_losses}
+\end{figure}
+
+\section{MSRE adaption for modelling}
+
+\subsection{Kophazi article review}
+
+Kophazi developed a 3D time-dependent simulation that was validated against MSRE
+data. \cite{kophazi_development_????} The model consists of a conventional
+neutronics model extended to deal with the precursor drift that is unique to
+MSRs and the core's thermal behavior. The thermal model includes the true
+geometry of the fuel channels as well as the moderator connecting them. Salt
+flow is assumed to be only in the reactor's axial direction, which reduces the
+number of non-linear variables that have to be solved for.
+
+\subsubsection{Neutronics}
+
+Neutrons are described with time-dependent multi-group diffusion theory as shown
+in \cref{eq:neutrons}:
+
+\begin{equation}
+\frac{1}{v_g}\frac{\partial \phi_g}{\partial t} - \nabla \cdot D_g \nabla \phi_g
++ \Sigma_g^r \phi_g = \sum_{g \ne g'}^G \Sigma_{g'\rightarrow g}^s \phi_{g'} + \chi_g^p \sum_{g' = 1}^G (1 - \beta)
+\nu \Sigma_{g'}^f \phi_{g'} + \sum_i^I \lambda_i \chi_g^{d,i} C_i
+\label{eq:neutrons}
+\end{equation}
+
+Delayed neutron pre-cursors are described by \cref{eq:precursors}:
+
+\begin{equation}
+\frac{\partial C_i}{\partial t} = \sum_{g'= 1}^G \beta_i \nu \Sigma_{g'}^f
+\phi_{g'} - \lambda_i C_i - \frac{\partial}{\partial z} u C_i
+\label{eq:precursors}
+\end{equation}
+
+with the last term representing the effect of fuel advection. In
+\cite{kophazi_development_????}, \cref{eq:neutrons} is solved only in the
+reactor core, whereas \cref{eq:precursors} is solved both in the core and in the
+MSRE external primary circuit. The external loop is modeled as a single pipe
+with a volume equal to the total volume of all the external components and
+pipelines of the primary circuitry. \cite{kophazi_development_????} It is not
+entirely clear how pipe cross sectional areas are handled, which would determine
+the transit times of individual pieces of fluid and subsequently the
+distribution of delayed neutron production in the external primary circuit. That
+is a piece that would likely need to be included in detailed ARFC accident
+models.
+
+As pointed out in \cite{kophazi_development_????}, it is not possible to solve
+\cref{eq:neutrons,eq:precursors} on the same mesh. \Cref{eq:neutrons} needs to
+be solved over the entire reactor cross-section including fuel channels and the
+graphite moderator in between, whereas \cref{eq:precursors} is only applicable
+within the fuel channels. Kophazi solves this issue by introducing a fuel
+fraction parameter, $p_f$, and creating effective fuel flow
+channels. \Cref{fig:kophazi_homo} shows how Kophazi transforms the MSRE unit
+cell into neutronic and precursor elements. The number of effective fuel
+channels in the unit cell is determined by the refinement of the neutron grid,
+e.g. the \# of channels is equivalent to the number of neutronic elements in a
+given MSRE unit cell. Consequently, once the domain is discretized (Kophazi uses
+the finite volume method), the delayed neutron source term (last term in
+\cref{eq:neutrons}) is multiplied by the fuel fraction $p_f$. Homogenization of
+the removal, scattering, and fission cross sections allows translation of the
+model from the real to effective geometry. Details of the discretization can be
+found in \cite{kophazi_development_????}.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{kophazi_neutronics_discretization.png}
+  \caption{Homogenized model of fuel channels \cite{kophazi_development_????}}
+  \label{fig:kophazi_homo}
+\end{figure}
+
+\subsubsection{Thermal hydraulics}
+
+Temperature in the fuel is determined by a 1-D convection model in the axial
+direction. Moderator temperatures are calculated with a 3-D conduction
+model. Coupling between the moderator and fuel temperatures is accomplished
+through an axially varying heat transfer coefficient calculated with a Nusselt
+correlation; see \cite{kophazi_development_????} for details of the Nusselt
+correlation. Thermal expansion of the fuel was not accounted for while
+determining the reactor temperature profile; however, expansion is considered
+when determining homogenized neutron cross-sections.
+
+\section{MSBR}
 
 The most detailed report on ORNL's molten salt breeder reactor is the technical
 report by Robertson. \cite{robertson_conceptual_1971} A nice overview of the
