@@ -13,7 +13,7 @@
 \graphicspath{{./figures/}}
 
 \title{Advanced Reactor Fuel cycle Molten Salt Reactor Design}
-\author{Alexander Lindsay, Katy Huff} % As you author additions/changes, add
+\author{Alexander Lindsay, Katy Huff, Andrei Rykhlevskii} % As you author additions/changes, add
                                       % your name here!!!
 
 % To do: Decide how to present figures in a way that they don't have both our
@@ -225,6 +225,30 @@ Model's simplifications:
   \includegraphics{Cammi_simplification_1.png}
   \caption{Cammi's simplification of MSBR's geometry. \cite{cammi_multi-physics_2011}}
   \label{fig:simlification}
+\end{figure}
+
+Neutronics Boundary Conditions.
+\begin{enumerate}
+	\item \textit{Inlet boundary}. The "vacuum" condition is adopted for the fast and thermal neutron fluxes. The circulation of delayed neutron precursors is taken into account considering that a certain amount of DNPs can return into the core from the external loop:
+	
+	\[ C_{i,in}(t) = C_{i,out}(t- \tau_{EL})exp(- \lambda_i \tau_{EL}) \]
+	\item \textit{Outlet boundary}. "Vacuum" condition for fast and thermal neutrons.  
+	\item \textit{Wall and central boundaries.} Symmetry boundary conditions are imposed for the neutron fluxes at r=0 and $ r=R_2 $.
+\end{enumerate}
+
+Flow and heat transfer boundary conditions.
+\begin{enumerate}
+	\item \textit{Inlet boundary}. The inlet velocity is given as $u_z = U_{in}=1.47 m/s$ and $u_r=0$. Turbulent kinetic energy $k_{in}=0.007 m^2/s^2$. Turbulent dissipation rate $\epsilon_{in}=0.033 m^2/s^2 $. $T_F=T_in=839K$.
+	\item \textit{Outlet boundary}. The "local one-way method" is exploited for u,k,$\epsilon$, and $T_F$.
+	\item \textit{Central boundaries.} Symmetry conditions are considered on the axis of the channel.
+	\item \textit{Wall and central boundaries.} "Wall function approach" that use empirically-based relations in turbulent flows near solid boundaries in order to describe the velocity and temperature profile in the thin boundary layer near the wall, instead of solving the turbulence equations.
+\end{enumerate}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics{Cammi_simplification_2.png}
+  \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron flux and DNP boundary conditions. \cite{cammi_multi-physics_2011}}
+  \label{fig:simlification-2}
 \end{figure}
 
 \FloatBarrier
