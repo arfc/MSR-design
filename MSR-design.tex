@@ -10,7 +10,18 @@
 \usepackage[T1]{fontenc}
 \usepackage{gensymb}
 \usepackage[utf8]{inputenc}
+\usepackage{caption}
+\usepackage[export]{adjustbox}
 \graphicspath{{./figures/}}
+
+\let\Oldsection\section
+\renewcommand{\section}{\FloatBarrier\Oldsection}
+
+\let\Oldsubsection\subsection
+\renewcommand{\subsection}{\FloatBarrier\Oldsubsection}
+
+\let\Oldsubsubsection\subsubsection
+\renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
 
 \title{Advanced Reactor Fuel cycle Molten Salt Reactor Design}
 \author{Alexander Lindsay, Katy Huff, Andrei Rykhlevskii} % As you author additions/changes, add
@@ -59,7 +70,7 @@ PWAR-1, and MSRE are the only critical MSRs ever operated.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics[width=\textwidth]{salt_properties.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{salt_properties.png}
   \caption{Composition and properties of fuel, flush, and coolant
     salts. \cite{robertson_msre_1965}}
   \label{fig:salt_properties}
@@ -69,19 +80,43 @@ PWAR-1, and MSRE are the only critical MSRs ever operated.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{flow_diagram.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{flow_diagram.png}
   \caption{Macroscopic layout of the MSRE \cite{robertson_msre_1965}}
   \label{fig:MSRE_layout}
 \end{figure}
 
 \subsubsection{Reactor vessel}
 
+A cutaway diagram of the MSRE reactor is shown in \cref{fig:MSRE_reactor}. Fuel
+enters through the inlet and is distributed evenlgy along the outside of the
+reactor vessel in a small annular region of 1 inch
+width. \cite{robertson_msre_1965} The fluid fuel then flows turbulently
+downward, cooling the reactor vessel to within 5\textdegree F of the entering
+bulk salt temperature (1175 \textdegree F). \cite{robertson_msre_1965} Some MSRE
+modeling papers (\cite{kophazi_development_????}) refer to this down-flowing
+region as the \textit{downcomer}. The fuel salt is collected in the lower plenum
+(lower \textit{space}) of the reactor where straightening vanes remove the
+salt's rotational motion. The salt then flows upward through approximately 1140
+0.4-inch by 1.2-inch fuel channels that are formed by machinging grooves in the
+sides of the graphite moderator columns \cite{robertson_msre_1965}; these are the
+regions where fission occurs. The graphite columns themselves have 2-inch by
+2-inch square cross sections. Nominal core volume is 90 ft$^3$, with 70 ft$^3$
+occupied by graphite and 20 ft$^3$ occupied by fuel. \cite{robertson_msre_1965}
+After flowing through the core channels, the fuel collects in the upper plenum
+before exiting through the outlet.
+
 \begin{figure}[htpb]
   \centering
-  \includegraphics{MSRE_reactor_vessel.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{MSRE_reactor_vessel.png}
   \caption{MSRE reactor vessel. \cite{robertson_msre_1965}}
   \label{fig:MSRE_reactor}
 \end{figure}
+
+Though studies were conducted with the MSRE core surrounded by varying
+thicknesses of reflector \cite{haubenreich_msre_1964}, the experimental design
+was bare. This type of reactor design lends itself most naturally to a vacuum
+boundary condition for neutrons (zero incoming flux) like that used in
+\cite{dulla_neutron_2004}.
 
 \subsection{Reactivity considerations}
 
@@ -93,7 +128,7 @@ fuel. \cite{robertson_msre_1965}
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{reactivity-losses.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{reactivity-losses.png}
   \caption{Losses in reactivity associated with different
     phenomena. \cite{robertson_msre_1965}}
   \label{fig:reactivity_losses}
@@ -158,16 +193,18 @@ the finite volume method), the delayed neutron source term (last term in
 \cref{eq:neutrons}) is multiplied by the fuel fraction $p_f$. Homogenization of
 the removal, scattering, and fission cross sections allows translation of the
 model from the real to effective geometry. Details of the discretization can be
-found in \cite{kophazi_development_????}.
+found in \cite{kophazi_development_????}. Unfortunately, neither
+\cite{kophazi_development_????} or cited references for the DALTON code,
+describe the boundary conditions used for neutrons.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{kophazi_neutronics_discretization.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi_neutronics_discretization.png}
   \caption{Homogenized model of fuel channels \cite{kophazi_development_????}}
   \label{fig:kophazi_homo}
 \end{figure}
 
-\subsubsection{Thermal hydraulics}
+\subsubsection{Thermal Hydraulics}
 
 Temperature in the fuel is determined by a 1-D convection model in the axial
 direction. Moderator temperatures are calculated with a 3-D conduction
@@ -176,7 +213,71 @@ through an axially varying heat transfer coefficient calculated with a Nusselt
 correlation; see \cite{kophazi_development_????} for details of the Nusselt
 correlation. Thermal expansion of the fuel was not accounted for while
 determining the reactor temperature profile; however, expansion is considered
-when determining homogenized neutron cross-sections.
+($\kappa = 0.57 mg/cm^3 K$) when determining homogenized neutron
+cross-sections. A model for the heat exchanger is included with a heat sink term
+proportional to the temperature difference between fuel and coolant salts, with
+the constant of proportionality determined from steady-state MSRE operational
+data. With the exception of the heat exchanger, the thermal code assumes zero
+heat flux boundary conditions.
+
+\subsubsection{Reactor Model}
+
+Cell weighting and cross section homogenization calculations were carried out
+using SCALE. In order to work with the 1D nature of the SCALE/CSAS/XSDRN code,
+the actual MSRE geometry was simplified as shown in \cref{fig:real-vs-model}
+where the actual geometry is on the left and the model geometry is on the
+right. Note that the far left sub-figure of \cref{fig:kophazi_homo} is the
+zoomed, unit cell version of the left sub-figure of \cref{fig:real-vs-model}.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi-actual-vs-model-core-geometry.png}
+  \caption{Left figure shows snapshot of actual MSRE core geometry; to satisfy
+    the 1D SCALE/CSAS/XSDRN code, the more regular geometry in the right figure
+    is used \cite{kophazi_development_????}}
+  \label{fig:real-vs-model}
+\end{figure}
+
+Neutron cross sections were collapsed into eight energy groups, distributed
+evenly on a logarithmic scale, with additional groups added in resonance and
+thermal regions. Control rods were modeled with albedo boundary conditions for
+thermal neutrons. More control rod modeling details can be found in
+\cite{kophazi_development_????}.
+
+Neutron and thermal calculations are performed on separate grids. The axial and
+horizontal neutron grids are both shown in \cref{fig:neutron-grid}. It includes
+regions for the lower and upper salt plena, downcomer, and three control rods. A
+section of the horizontal thermal grid is shown in \cref{fig:thermal-grid}. In
+general, the thermal grid is finer than the neutron grid. Thermal and neutronic
+calculations are coupled in the following way. Each cell of the neutron mesh
+(containing both fuel and moderator, recall \cref{fig:kophazi_homo}) is
+considered to have uniform cross-sections. To generate these constant
+cross-sections in each neutronic cell, the fine-mesh temperature fields from
+the thermal calculation (called THERM) are spatially averaged using an auxiliary
+program. This averaged neutron-cell-specific temperature is then used in
+conjunction with cross section interpolation tables generated by SCALE to
+determine the macroscopic cross sections for each neutron cell in the
+simulation.
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{3d-neutron-grid.png}
+  \caption{Grid for cross section homogenization and neutron cross sections
+    \cite{kophazi_development_????}}
+  \label{fig:neutron-grid}
+\end{figure}
+
+\begin{figure}[htpb]
+  \centering
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{cross-section-of-thermal-grid.png}
+  \caption{Cross-section of thermal grid \cite{kophazi_development_????}}
+  \label{fig:thermal-grid}
+\end{figure}
+
+Feedback from the neutron to thermal calculations is accomplished by translating
+the power distribution from the coarse neutron grid to the fine thermal grid
+using another auxiliary program. This power distribution is then used as a heat
+source in the thermal code.
 
 \section{MSBR}
 
@@ -186,19 +287,19 @@ MSBR geometry is shown in \cref{fig:vertical,fig:horizontal,fig:zoom_horiz}.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{vertical_MSBR_cross_section.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{vertical_MSBR_cross_section.png}
   \caption{Vertical cross section of MSBR.}
   \label{fig:vertical}
 \end{figure}
 \begin{figure}[htpb]
   \centering
-  \includegraphics{horizontal_MSBR_cross_section.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{horizontal_MSBR_cross_section.png}
   \caption{Horizontal cross section of MSBR.}
   \label{fig:horizontal}
 \end{figure}
 \begin{figure}[htpb]
   \centering
-  \includegraphics{zoomed_horizontal_MSBR_cross_section.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{zoomed_horizontal_MSBR_cross_section.png}
   \caption{Zoomed in horizontal cross-section of MSBR. Shows presence of
     interstitials between graphite block elements in zone 1 of the reactor.}
   \label{fig:zoom_horiz}
