@@ -23,7 +23,9 @@
 \let\Oldsubsubsection\subsubsection
 \renewcommand{\subsubsection}{\FloatBarrier\Oldsubsubsection}
 
-\title{Advanced Reactor Fuel cycle Molten Salt Reactor Design}
+\newcommand{\code}[1]{\texttt{#1}}
+
+\title{Advanced Reactor Fuel Cycle (ARFC) Molten Salt Reactor Design}
 \author{Alexander Lindsay, Katy Huff, Andrei Rykhlevskii} % As you author additions/changes, add
                                       % your name here!!!
 
@@ -278,6 +280,39 @@ Feedback from the neutron to thermal calculations is accomplished by translating
 the power distribution from the coarse neutron grid to the fine thermal grid
 using another auxiliary program. This power distribution is then used as a heat
 source in the thermal code.
+
+\subsection{ARFC MSRE Model Design Plan}
+
+\begin{enumerate}
+\item Test whether \code{gmsh} can generate heterogeneous 3D mesh structure
+  like that in the actual MSRE geometry.
+\item For expected range of temperatures and some defined sequence of
+  temperature step sizes, generate table of few-group neutronics cross sections
+  with \code{SERPENT}.
+  \begin{itemize}
+    \item If \code{gmsh}, or that failing \code{cubit}, is capable of generating
+      heterogeneous grid, we can generate unique cross regions for each region
+    \item If we cannot generate heterogeneous grid, we will have to homogenize
+      the cross sections similar to what is done in
+      \cite{kophazi_development_????}.
+  \end{itemize}
+\item Armed with tables for quick interpolation of cross sections, we should be
+  able to perform coupled calculations for neutron density and
+  temperature.
+  \begin{itemize}
+    \item As a first pass, the fuel salt flow velocity can be a user input as
+      opposed to a non-linear variable that is a function of temperature.
+    \item We will need to decide whether neutron and temperature calculations
+      should be performed on the same grid, and in transient calculations
+      whether those two fields should be updated on the same step-size.
+      \begin{itemize}
+        \item If not using the same grid and/or step-size, the neutronic and
+          temperature calculations will need to be split into their own
+          applications and coupling will have to be performed using the MOOSE
+          multi-app system.
+      \end{itemize}
+  \end{itemize}
+\end{enumerate}
 
 \section{MSBR}
 
