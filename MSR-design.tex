@@ -317,13 +317,13 @@ This model is based on the multi-physics model by
 Model's simplifications:
 \begin{enumerate}
 	\item Considered only one channel (diameter ~0.05 m)
-	\item Hollow cylinder instead of block with a hole (with keeping the same fuel to graphite ratio) 
+	\item Hollow cylinder instead of block with a hole (with keeping the same fuel to graphite ratio)
 	\item Infinite length of the channel (z tends to infinity)
 \end{enumerate}
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{Cammi_simplification_1.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_1.png}
   \caption{Cammi's simplification of MSBR's geometry. \cite{cammi_multi-physics_2011}}
   \label{fig:simlification}
 \end{figure}
@@ -331,9 +331,9 @@ Model's simplifications:
 Neutronics Boundary Conditions.
 \begin{enumerate}
 	\item \textit{Inlet boundary}. The "vacuum" condition is adopted for the fast and thermal neutron fluxes. The circulation of delayed neutron precursors is taken into account considering that a certain amount of DNPs can return into the core from the external loop:
-	
+
 	\[ C_{i,in}(t) = C_{i,out}(t- \tau_{EL})exp(- \lambda_i \tau_{EL}) \]
-	\item \textit{Outlet boundary}. "Vacuum" condition for fast and thermal neutrons.  
+	\item \textit{Outlet boundary}. "Vacuum" condition for fast and thermal neutrons.
 	\item \textit{Wall and central boundaries.} Symmetry boundary conditions are imposed for the neutron fluxes at r=0 and $ r=R_2 $.
 \end{enumerate}
 
@@ -347,7 +347,7 @@ Flow and heat transfer boundary conditions.
 
 \begin{figure}[htpb]
   \centering
-  \includegraphics{Cammi_simplification_2.png}
+  \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_2.png}
   \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron flux and DNP boundary conditions. \cite{cammi_multi-physics_2011}}
   \label{fig:simlification-2}
 \end{figure}
