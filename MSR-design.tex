@@ -3,8 +3,6 @@
 \setlength{\parskip}{2ex plus 0.5ex minus 0.2ex}
 \usepackage[margin=1in]{geometry}
 \usepackage{graphicx}
-\usepackage{hyperref}
-\usepackage{cleveref}
 \usepackage{textcomp}
 \usepackage{placeins}
 \usepackage[T1]{fontenc}
@@ -13,6 +11,14 @@
 \usepackage{caption}
 \usepackage[export]{adjustbox}
 \graphicspath{{./figures/}}
+% hyperref usually has to go last
+\usepackage[hidelinks]{hyperref}
+% but glossaries behaves best if after hyperref
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+\makeglossaries
+% cleveref only behaves if after hyperref & glossaries
+\usepackage{cleveref}
 
 \let\Oldsection\section
 \renewcommand{\section}{\FloatBarrier\Oldsection}
@@ -26,7 +32,7 @@
 \newcommand{\code}[1]{\texttt{#1}}
 
 \title{Advanced Reactor Fuel Cycle (ARFC) Molten Salt Reactor Design}
-\author{Alexander Lindsay, Katy Huff, Andrei Rykhlevskii} % As you author additions/changes, add
+\author{Alexander Lindsay, Andrei Rykhlevskii, Kathryn Huff} % As you author additions/changes, add
                                       % your name here!!!
 
 % To do: Decide how to present figures in a way that they don't have both our
@@ -38,35 +44,34 @@
 
 \section{Brief History}
 
-The basis for this quick synopsis comes from
-\cite{wiki:Molten_salt_reactor}. Research into molten salt reactors (MSRs) began
-in earnest with the Aircraft Reactor Experiment (ARE), with experiments shared
-between Oak Ridge National Lab (ORNL) and what is now Idaho National Lab
-(INL). The ARE used NaF-ZrF$_4$-UF$_4$ (53-41-6 mol\%) as fuel. The reactor was
-moderated by beryllium oxide (BeO), used liquid sodium as the secondary coolant,
-and had a peak tempeature around 860 \textdegree C. The ARE managed to generate
+The basis for this quick synopsis comes from \cite{wikipedia_molten_2016}. 
+Research into \glspl{MSR} began in earnest with the \gls{ARE}, with experiments 
+shared between \gls{ORNL} and what is now \gls{INL}. The \gls{ARE} used 
+NaF-ZrF$_4$-UF$_4$ (53-41-6 mol\%) as fuel. The reactor was moderated by 
+beryllium oxide (BeO), used liquid sodium as the secondary coolant, and had a 
+peak temperature around 860 \textdegree C. The \gls{ARE} managed to generate
 100 MWh over the course of nine days in 1954. There was another reactor that
-went critical at ORNL in 1957 called the Pratt and Whitney Aircraft Reactor-1
+went critical at \gls{ORNL} in 1957 called the Pratt and Whitney Aircraft Reactor-1
 (PWAR-1). Although it produced essentially no power, the PWAR-1 is still one of
 only three critical MSRs ever built.
 
-The most successful MSR was the Molten-Salt Reactor Experiment (MSRE) which went
-critical in 1965 and operated for four years at ORNL. The MSRE fuel was
+The most successful \gls{MSR}was the \gls{MSRE} which went
+critical in 1965 and operated for four years at \gls{ORNL}. The \gls{MSRE} fuel was
 LiF-BeF$_2$-ZrF$_4$-UF$_4$ (65-29-5-1 mol\%) with graphite core moderation. The
 secondary coolant was 2LiF-BeF$_2$ (also known as FLiBe). Operating temperatures
-went as high as 650 \textdegree C. MSRE neutronics were meant to mimic that of
-an epithermal thorium molten salt breeder reactor (MSBR); however, for the MSRE
+went as high as 650 \textdegree C. \gls{MSRE} neutronics were meant to mimic that of
+an epithermal thorium molten salt breeder reactor (MSBR); however, for the \gls{MSRE}
 the expensive breeding blanket was sacrificed in favor of neutron
-measurements. At full design power, the MSRE operated at 7.4 MW$_{th}$. Over the
-course of the late 1960s the MSRE operated at full capacity for an equivalent of
+measurements. At full design power, the \gls{MSRE} operated at 7.4 MW$_{th}$. Over the
+course of the late 1960s the \gls{MSRE} operated at full capacity for an equivalent of
 1.5 years.
 
-The logical follow-on from the MSRE was the MSBR; however, the MSBR was never
-constructed. Funding for the MSR program was cut in favor of the liquid metal
-fast-breeder reactor (LMFBR) program. Consequently, as of today, the ARE,
-PWAR-1, and MSRE are the only critical MSRs ever operated.
+The logical follow-on from the \gls{MSRE} was the MSBR; however, the MSBR was never
+constructed. Funding for the \gls{MSR}program was cut in favor of the
+\gls{LMFBR} program. Consequently, as of today, the \gls{ARE},
+PWAR-1, and \gls{MSRE} are the only critical MSRs ever operated.
 
-\section{MSRE}
+\section{\gls{MSRE}}
 
 \subsection{Salt properties}
 
@@ -74,7 +79,7 @@ PWAR-1, and MSRE are the only critical MSRs ever operated.
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{salt_properties.png}
   \caption{Composition and properties of fuel, flush, and coolant
-    salts. \cite{robertson_msre_1965}}
+    salts \cite{robertson_msre_1965}.}
   \label{fig:salt_properties}
 \end{figure}
 
@@ -83,38 +88,38 @@ PWAR-1, and MSRE are the only critical MSRs ever operated.
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{flow_diagram.png}
-  \caption{Macroscopic layout of the MSRE \cite{robertson_msre_1965}}
+  \caption{Macroscopic layout of the \gls{MSRE} \cite{robertson_msre_1965}}
   \label{fig:MSRE_layout}
 \end{figure}
 
 \subsubsection{Reactor vessel}
 
-A cutaway diagram of the MSRE reactor is shown in \cref{fig:MSRE_reactor}. Fuel
-enters through the inlet and is distributed evenlgy along the outside of the
+A cutaway diagram of the \gls{MSRE} reactor is shown in \cref{fig:MSRE_reactor}. Fuel
+enters through the inlet and is distributed evenly along the outside of the
 reactor vessel in a small annular region of 1 inch
-width. \cite{robertson_msre_1965} The fluid fuel then flows turbulently
-downward, cooling the reactor vessel to within 5\textdegree F of the entering
-bulk salt temperature (1175 \textdegree F). \cite{robertson_msre_1965} Some MSRE
-modeling papers (\cite{kophazi_development_????}) refer to this down-flowing
-region as the \textit{downcomer}. The fuel salt is collected in the lower plenum
-(lower \textit{space}) of the reactor where straightening vanes remove the
-salt's rotational motion. The salt then flows upward through approximately 1140
-0.4-inch by 1.2-inch fuel channels that are formed by machinging grooves in the
-sides of the graphite moderator columns \cite{robertson_msre_1965}; these are the
-regions where fission occurs. The graphite columns themselves have 2-inch by
-2-inch square cross sections. Nominal core volume is 90 ft$^3$, with 70 ft$^3$
-occupied by graphite and 20 ft$^3$ occupied by fuel. \cite{robertson_msre_1965}
+width \cite{robertson_msre_1965}. The fluid fuel then flows turbulently 
+downward, cooling the reactor vessel to within 5\textdegree F of the entering 
+bulk salt temperature (1175 \textdegree F) \cite{robertson_msre_1965}. This 
+down-flowing region is typically referred to as the \textit{downcomer}. The 
+fuel salt is collected in the lower plenum (lower \textit{space}) of the 
+reactor where straightening vanes remove the salt's rotational motion. The salt 
+then flows upward through approximately 1140 0.4-inch by 1.2-inch fuel channels 
+that are formed by machining grooves in the sides of the graphite moderator 
+columns \cite{robertson_msre_1965}; these are the regions where fission occurs. 
+The graphite columns themselves have 2-inch by 2-inch square cross sections. 
+Nominal core volume is 90 ft$^3$, with 70 ft$^3$ occupied by graphite and 20 
+ft$^3$ occupied by fuel \cite{robertson_msre_1965}.
 After flowing through the core channels, the fuel collects in the upper plenum
 before exiting through the outlet.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{MSRE_reactor_vessel.png}
-  \caption{MSRE reactor vessel. \cite{robertson_msre_1965}}
+  \caption{\gls{MSRE} reactor vessel \cite{robertson_msre_1965}.}
   \label{fig:MSRE_reactor}
 \end{figure}
 
-Though studies were conducted with the MSRE core surrounded by varying
+Though studies were conducted with the \gls{MSRE} core surrounded by varying
 thicknesses of reflector \cite{haubenreich_msre_1964}, the experimental design
 was bare. This type of reactor design lends itself most naturally to a vacuum
 boundary condition for neutrons (zero incoming flux) like that used in
@@ -122,26 +127,26 @@ boundary condition for neutrons (zero incoming flux) like that used in
 
 \subsection{Reactivity considerations}
 
-The MSRE has a negative temperature coefficient of 6.4 - 9.9 x $10^{-5}$
+The \gls{MSRE} has a negative temperature coefficient of $6.4 - 9.9 \times10^{-5}$
 ($\Delta$k/k)/\textdegree F depending on the choice of
-fuel. \cite{robertson_msre_1965} The MSRE's three control rods have a combined
+fuel \cite{robertson_msre_1965}. The \gls{MSRE}'s three control rods have a combined
 worth of 5.6 - 7.6 \% $\Delta$k/k, again depending on the
-fuel. \cite{robertson_msre_1965}
+fuel \cite{robertson_msre_1965}.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{reactivity-losses.png}
   \caption{Losses in reactivity associated with different
-    phenomena. \cite{robertson_msre_1965}}
+    phenomena \cite{robertson_msre_1965}.}
   \label{fig:reactivity_losses}
 \end{figure}
 
-\section{MSRE adaption for modelling}
+\section{\gls{MSRE} adaption for modelling}
 
 \subsection{Kophazi article review}
 
-Kophazi developed a 3D time-dependent simulation that was validated against MSRE
-data. \cite{kophazi_development_????} The model consists of a conventional
+Kophazi developed a 3D time-dependent simulation that was validated against \gls{MSRE}
+data \cite{kophazi_development_2009}. The model consists of a conventional
 neutronics model extended to deal with the precursor drift that is unique to
 MSRs and the core's thermal behavior. The thermal model includes the true
 geometry of the fuel channels as well as the moderator connecting them. Salt
@@ -160,7 +165,7 @@ in \cref{eq:neutrons}:
 \label{eq:neutrons}
 \end{equation}
 
-Delayed neutron pre-cursors are described by \cref{eq:precursors}:
+Delayed neutron precursors are described by \cref{eq:precursors}:
 
 \begin{equation}
 \frac{\partial C_i}{\partial t} = \sum_{g'= 1}^G \beta_i \nu \Sigma_{g'}^f
@@ -169,40 +174,40 @@ Delayed neutron pre-cursors are described by \cref{eq:precursors}:
 \end{equation}
 
 with the last term representing the effect of fuel advection. In
-\cite{kophazi_development_????}, \cref{eq:neutrons} is solved only in the
+\cite{kophazi_development_2009}, \cref{eq:neutrons} is solved only in the
 reactor core, whereas \cref{eq:precursors} is solved both in the core and in the
-MSRE external primary circuit. The external loop is modeled as a single pipe
+\gls{MSRE} external primary circuit. The external loop is modeled as a single pipe
 with a volume equal to the total volume of all the external components and
-pipelines of the primary circuitry. \cite{kophazi_development_????} It is not
+pipelines of the primary circuitry \cite{kophazi_development_2009}. It is not
 entirely clear how pipe cross sectional areas are handled, which would determine
 the transit times of individual pieces of fluid and subsequently the
 distribution of delayed neutron production in the external primary circuit. That
 is a piece that would likely need to be included in detailed ARFC accident
 models.
 
-As pointed out in \cite{kophazi_development_????}, it is not possible to solve
+As pointed out in \cite{kophazi_development_2009}, it is not possible to solve
 \cref{eq:neutrons,eq:precursors} on the same mesh. \Cref{eq:neutrons} needs to
 be solved over the entire reactor cross-section including fuel channels and the
 graphite moderator in between, whereas \cref{eq:precursors} is only applicable
 within the fuel channels. Kophazi solves this issue by introducing a fuel
 fraction parameter, $p_f$, and creating effective fuel flow
-channels. \Cref{fig:kophazi_homo} shows how Kophazi transforms the MSRE unit
+channels. \Cref{fig:kophazi_homo} shows how Kophazi transforms the \gls{MSRE} unit
 cell into neutronic and precursor elements. The number of effective fuel
 channels in the unit cell is determined by the refinement of the neutron grid,
 e.g. the \# of channels is equivalent to the number of neutronic elements in a
-given MSRE unit cell. Consequently, once the domain is discretized (Kophazi uses
+given \gls{MSRE} unit cell. Consequently, once the domain is discretized (Kophazi uses
 the finite volume method), the delayed neutron source term (last term in
 \cref{eq:neutrons}) is multiplied by the fuel fraction $p_f$. Homogenization of
 the removal, scattering, and fission cross sections allows translation of the
 model from the real to effective geometry. Details of the discretization can be
-found in \cite{kophazi_development_????}. Unfortunately, neither
-\cite{kophazi_development_????} or cited references for the DALTON code,
+found in \cite{kophazi_development_2009}. Unfortunately, neither
+\cite{kophazi_development_2009} or cited references for the DALTON code,
 describe the boundary conditions used for neutrons.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi_neutronics_discretization.png}
-  \caption{Homogenized model of fuel channels \cite{kophazi_development_????}}
+  \caption{Homogenized model of fuel channels \cite{kophazi_development_2009}}
   \label{fig:kophazi_homo}
 \end{figure}
 
@@ -212,13 +217,13 @@ Temperature in the fuel is determined by a 1-D convection model in the axial
 direction. Moderator temperatures are calculated with a 3-D conduction
 model. Coupling between the moderator and fuel temperatures is accomplished
 through an axially varying heat transfer coefficient calculated with a Nusselt
-correlation; see \cite{kophazi_development_????} for details of the Nusselt
+correlation; see \cite{kophazi_development_2009} for details of the Nusselt
 correlation. Thermal expansion of the fuel was not accounted for while
 determining the reactor temperature profile; however, expansion is considered
 ($\kappa = 0.57 mg/cm^3 K$) when determining homogenized neutron
 cross-sections. A model for the heat exchanger is included with a heat sink term
 proportional to the temperature difference between fuel and coolant salts, with
-the constant of proportionality determined from steady-state MSRE operational
+the constant of proportionality determined from steady-state \gls{MSRE} operational
 data. With the exception of the heat exchanger, the thermal code assumes zero
 heat flux boundary conditions.
 
@@ -226,7 +231,7 @@ heat flux boundary conditions.
 
 Cell weighting and cross section homogenization calculations were carried out
 using SCALE. In order to work with the 1D nature of the SCALE/CSAS/XSDRN code,
-the actual MSRE geometry was simplified as shown in \cref{fig:real-vs-model}
+the actual \gls{MSRE} geometry was simplified as shown in \cref{fig:real-vs-model}
 where the actual geometry is on the left and the model geometry is on the
 right. Note that the far left sub-figure of \cref{fig:kophazi_homo} is the
 zoomed, unit cell version of the left sub-figure of \cref{fig:real-vs-model}.
@@ -234,9 +239,9 @@ zoomed, unit cell version of the left sub-figure of \cref{fig:real-vs-model}.
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi-actual-vs-model-core-geometry.png}
-  \caption{Left figure shows snapshot of actual MSRE core geometry; to satisfy
+  \caption{Left figure shows snapshot of actual \gls{MSRE} core geometry; to satisfy
     the 1D SCALE/CSAS/XSDRN code, the more regular geometry in the right figure
-    is used \cite{kophazi_development_????}}
+    is used \cite{kophazi_development_2009}}
   \label{fig:real-vs-model}
 \end{figure}
 
@@ -244,14 +249,14 @@ Neutron cross sections were collapsed into eight energy groups, distributed
 evenly on a logarithmic scale, with additional groups added in resonance and
 thermal regions. Control rods were modeled with albedo boundary conditions for
 thermal neutrons. More control rod modeling details can be found in
-\cite{kophazi_development_????}.
+\cite{kophazi_development_2009}.
 
 Neutron and thermal calculations are performed on separate grids. The axial and
 horizontal neutron grids are both shown in \cref{fig:neutron-grid}. It includes
 regions for the lower and upper salt plena, downcomer, and three control rods. A
 section of the horizontal thermal grid is shown in \cref{fig:thermal-grid}. In
 general, the thermal grid is finer than the neutron grid. Thermal and neutronic
-calculations are coupled in the following way. Each cell of the neutron mesh
+calculations are coupled in the following way. Each cell of the neutronics mesh
 (containing both fuel and moderator, recall \cref{fig:kophazi_homo}) is
 considered to have uniform cross-sections. To generate these constant
 cross-sections in each neutronic cell, the fine-mesh temperature fields from
@@ -265,14 +270,14 @@ simulation.
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{3d-neutron-grid.png}
   \caption{Grid for cross section homogenization and neutron cross sections
-    \cite{kophazi_development_????}}
+    \cite{kophazi_development_2009}}
   \label{fig:neutron-grid}
 \end{figure}
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{cross-section-of-thermal-grid.png}
-  \caption{Cross-section of thermal grid \cite{kophazi_development_????}}
+  \caption{Cross-section of thermal grid \cite{kophazi_development_2009}}
   \label{fig:thermal-grid}
 \end{figure}
 
@@ -281,11 +286,11 @@ the power distribution from the coarse neutron grid to the fine thermal grid
 using another auxiliary program. This power distribution is then used as a heat
 source in the thermal code.
 
-\subsection{ARFC MSRE Model Design Plan}
+\subsection{ARFC \gls{MSRE} Model Design Plan}
 
 \begin{enumerate}
 \item Test whether \code{gmsh} can generate heterogeneous 3D mesh structure
-  like that in the actual MSRE geometry.
+  like that in the actual \gls{MSRE} geometry.
 \item For expected range of temperatures and some defined sequence of
   temperature step sizes, generate table of few-group neutronics cross sections
   with \code{SERPENT}.
@@ -294,14 +299,18 @@ source in the thermal code.
       heterogeneous grid, we can generate unique cross regions for each region
     \item If we cannot generate heterogeneous grid, we will have to homogenize
       the cross sections similar to what is done in
-      \cite{kophazi_development_????}.
+      \cite{kophazi_development_2009}.
   \end{itemize}
 \item Armed with tables for quick interpolation of cross sections, we should be
   able to perform coupled calculations for neutron density and
   temperature.
   \begin{itemize}
-    \item As a first pass, the fuel salt flow velocity can be a user input as
-      opposed to a non-linear variable that is a function of temperature.
+    \item As a first pass, the fuel salt flow velocity can be a user input as 
+            opposed to a non-linear variable that is a function of temperature.
+    \item However, the natural convection impacts on salt flow will 
+            significantly contribute to reactor dynamics and the ultimate goal 
+            will be to couple neutron flux and flow directly via 
+            temperature.
     \item We will need to decide whether neutron and temperature calculations
       should be performed on the same grid, and in transient calculations
       whether those two fields should be updated on the same step-size.
@@ -316,8 +325,8 @@ source in the thermal code.
 
 \section{MSBR}
 
-The most detailed report on ORNL's molten salt breeder reactor is the technical
-report by Robertson. \cite{robertson_conceptual_1971} A nice overview of the
+The most detailed report on \gls{ORNL}'s molten salt breeder reactor is the technical
+report by Robertson \cite{robertson_conceptual_1971}. A nice overview of the
 MSBR geometry is shown in \cref{fig:vertical,fig:horizontal,fig:zoom_horiz}.
 
 \begin{figure}[htpb]
@@ -359,7 +368,8 @@ Model's simplifications:
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_1.png}
-  \caption{Cammi's simplification of MSBR's geometry. \cite{cammi_multi-physics_2011}}
+  \caption{Cammi's simplification of MSBR's geometry 
+        \cite{cammi_multi-physics_2011}.}
   \label{fig:simlification}
 \end{figure}
 
@@ -367,7 +377,7 @@ Neutronics Boundary Conditions.
 \begin{enumerate}
 	\item \textit{Inlet boundary}. The "vacuum" condition is adopted for the fast and thermal neutron fluxes. The circulation of delayed neutron precursors is taken into account considering that a certain amount of DNPs can return into the core from the external loop:
 
-	\[ C_{i,in}(t) = C_{i,out}(t- \tau_{EL})exp(- \lambda_i \tau_{EL}) \]
+	\[ C_{i,in}(t) = C_{i,out}(t- \tau_{EL})\exp(- \lambda_i \tau_{EL}) \]
 	\item \textit{Outlet boundary}. "Vacuum" condition for fast and thermal neutrons.
 	\item \textit{Wall and central boundaries.} Symmetry boundary conditions are imposed for the neutron fluxes at r=0 and $ r=R_2 $.
 \end{enumerate}
@@ -383,7 +393,8 @@ Flow and heat transfer boundary conditions.
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_2.png}
-  \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron flux and DNP boundary conditions. \cite{cammi_multi-physics_2011}}
+  \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron 
+        flux and DNP boundary conditions \cite{cammi_multi-physics_2011}.}
   \label{fig:simlification-2}
 \end{figure}
 
