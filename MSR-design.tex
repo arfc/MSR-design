@@ -98,7 +98,7 @@ reactor vessel in a small annular region of 1 inch
 width. \cite{robertson_msre_1965} The fluid fuel then flows turbulently
 downward, cooling the reactor vessel to within 5\textdegree F of the entering
 bulk salt temperature (1175 \textdegree F). \cite{robertson_msre_1965} Some \gls{MSRE}
-modeling papers (\cite{kophazi_development_????}) refer to this down-flowing
+modeling papers (\cite{kophazi_development_2009}) refer to this down-flowing
 region as the \textit{downcomer}. The fuel salt is collected in the lower plenum
 (lower \textit{space}) of the reactor where straightening vanes remove the
 salt's rotational motion. The salt then flows upward through approximately 1140
@@ -144,7 +144,7 @@ fuel. \cite{robertson_msre_1965}
 \subsection{Kophazi article review}
 
 Kophazi developed a 3D time-dependent simulation that was validated against \gls{MSRE}
-data. \cite{kophazi_development_????} The model consists of a conventional
+data. \cite{kophazi_development_2009} The model consists of a conventional
 neutronics model extended to deal with the precursor drift that is unique to
 MSRs and the core's thermal behavior. The thermal model includes the true
 geometry of the fuel channels as well as the moderator connecting them. Salt
@@ -172,18 +172,18 @@ Delayed neutron precursors are described by \cref{eq:precursors}:
 \end{equation}
 
 with the last term representing the effect of fuel advection. In
-\cite{kophazi_development_????}, \cref{eq:neutrons} is solved only in the
+\cite{kophazi_development_2009}, \cref{eq:neutrons} is solved only in the
 reactor core, whereas \cref{eq:precursors} is solved both in the core and in the
 \gls{MSRE} external primary circuit. The external loop is modeled as a single pipe
 with a volume equal to the total volume of all the external components and
-pipelines of the primary circuitry. \cite{kophazi_development_????} It is not
+pipelines of the primary circuitry. \cite{kophazi_development_2009} It is not
 entirely clear how pipe cross sectional areas are handled, which would determine
 the transit times of individual pieces of fluid and subsequently the
 distribution of delayed neutron production in the external primary circuit. That
 is a piece that would likely need to be included in detailed ARFC accident
 models.
 
-As pointed out in \cite{kophazi_development_????}, it is not possible to solve
+As pointed out in \cite{kophazi_development_2009}, it is not possible to solve
 \cref{eq:neutrons,eq:precursors} on the same mesh. \Cref{eq:neutrons} needs to
 be solved over the entire reactor cross-section including fuel channels and the
 graphite moderator in between, whereas \cref{eq:precursors} is only applicable
@@ -198,14 +198,14 @@ the finite volume method), the delayed neutron source term (last term in
 \cref{eq:neutrons}) is multiplied by the fuel fraction $p_f$. Homogenization of
 the removal, scattering, and fission cross sections allows translation of the
 model from the real to effective geometry. Details of the discretization can be
-found in \cite{kophazi_development_????}. Unfortunately, neither
-\cite{kophazi_development_????} or cited references for the DALTON code,
+found in \cite{kophazi_development_2009}. Unfortunately, neither
+\cite{kophazi_development_2009} or cited references for the DALTON code,
 describe the boundary conditions used for neutrons.
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi_neutronics_discretization.png}
-  \caption{Homogenized model of fuel channels \cite{kophazi_development_????}}
+  \caption{Homogenized model of fuel channels \cite{kophazi_development_2009}}
   \label{fig:kophazi_homo}
 \end{figure}
 
@@ -215,7 +215,7 @@ Temperature in the fuel is determined by a 1-D convection model in the axial
 direction. Moderator temperatures are calculated with a 3-D conduction
 model. Coupling between the moderator and fuel temperatures is accomplished
 through an axially varying heat transfer coefficient calculated with a Nusselt
-correlation; see \cite{kophazi_development_????} for details of the Nusselt
+correlation; see \cite{kophazi_development_2009} for details of the Nusselt
 correlation. Thermal expansion of the fuel was not accounted for while
 determining the reactor temperature profile; however, expansion is considered
 ($\kappa = 0.57 mg/cm^3 K$) when determining homogenized neutron
@@ -239,7 +239,7 @@ zoomed, unit cell version of the left sub-figure of \cref{fig:real-vs-model}.
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{kophazi-actual-vs-model-core-geometry.png}
   \caption{Left figure shows snapshot of actual \gls{MSRE} core geometry; to satisfy
     the 1D SCALE/CSAS/XSDRN code, the more regular geometry in the right figure
-    is used \cite{kophazi_development_????}}
+    is used \cite{kophazi_development_2009}}
   \label{fig:real-vs-model}
 \end{figure}
 
@@ -247,7 +247,7 @@ Neutron cross sections were collapsed into eight energy groups, distributed
 evenly on a logarithmic scale, with additional groups added in resonance and
 thermal regions. Control rods were modeled with albedo boundary conditions for
 thermal neutrons. More control rod modeling details can be found in
-\cite{kophazi_development_????}.
+\cite{kophazi_development_2009}.
 
 Neutron and thermal calculations are performed on separate grids. The axial and
 horizontal neutron grids are both shown in \cref{fig:neutron-grid}. It includes
@@ -268,14 +268,14 @@ simulation.
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{3d-neutron-grid.png}
   \caption{Grid for cross section homogenization and neutron cross sections
-    \cite{kophazi_development_????}}
+    \cite{kophazi_development_2009}}
   \label{fig:neutron-grid}
 \end{figure}
 
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{cross-section-of-thermal-grid.png}
-  \caption{Cross-section of thermal grid \cite{kophazi_development_????}}
+  \caption{Cross-section of thermal grid \cite{kophazi_development_2009}}
   \label{fig:thermal-grid}
 \end{figure}
 
@@ -297,7 +297,7 @@ source in the thermal code.
       heterogeneous grid, we can generate unique cross regions for each region
     \item If we cannot generate heterogeneous grid, we will have to homogenize
       the cross sections similar to what is done in
-      \cite{kophazi_development_????}.
+      \cite{kophazi_development_2009}.
   \end{itemize}
 \item Armed with tables for quick interpolation of cross sections, we should be
   able to perform coupled calculations for neutron density and
