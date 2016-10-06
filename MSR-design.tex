@@ -305,8 +305,12 @@ source in the thermal code.
   able to perform coupled calculations for neutron density and
   temperature.
   \begin{itemize}
-    \item As a first pass, the fuel salt flow velocity can be a user input as
-      opposed to a non-linear variable that is a function of temperature.
+    \item As a first pass, the fuel salt flow velocity can be a user input as 
+            opposed to a non-linear variable that is a function of temperature.
+    \item However, the natural convection impacts on salt flow will 
+            significantly contribute to reactor dynamics and the ultimate goal 
+            will be to couple neutron flux and flow directly via 
+            temperature.
     \item We will need to decide whether neutron and temperature calculations
       should be performed on the same grid, and in transient calculations
       whether those two fields should be updated on the same step-size.
