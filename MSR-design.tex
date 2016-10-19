@@ -31,7 +31,7 @@
 
 \newcommand{\code}[1]{\texttt{#1}}
 
-\title{Advanced Reactor Fuel Cycle (ARFC) Molten Salt Reactor Design}
+\title{Advanced Reactor Fuel Cycles Molten Salt Reactor Design}
 \author{Alexander Lindsay, Andrei Rykhlevskii, Kathryn Huff} % As you author additions/changes, add
                                       % your name here!!!
 
@@ -44,11 +44,11 @@
 
 \section{Brief History}
 
-The basis for this quick synopsis comes from \cite{wikipedia_molten_2016}. 
-Research into \glspl{MSR} began in earnest with the \gls{ARE}, with experiments 
-shared between \gls{ORNL} and what is now \gls{INL}. The \gls{ARE} used 
-NaF-ZrF$_4$-UF$_4$ (53-41-6 mol\%) as fuel. The reactor was moderated by 
-beryllium oxide (BeO), used liquid sodium as the secondary coolant, and had a 
+The basis for this quick synopsis comes from \cite{wikipedia_molten_2016}.
+Research into \glspl{MSR} began in earnest with the \gls{ARE}, with experiments
+shared between \gls{ORNL} and what is now \gls{INL}. The \gls{ARE} used
+NaF-ZrF$_4$-UF$_4$ (53-41-6 mol\%) as fuel. The reactor was moderated by
+beryllium oxide (BeO), used liquid sodium as the secondary coolant, and had a
 peak temperature around 860 \textdegree C. The \gls{ARE} managed to generate
 100 MWh over the course of nine days in 1954. There was another reactor that
 went critical at \gls{ORNL} in 1957 called the Pratt and Whitney Aircraft Reactor-1
@@ -83,6 +83,9 @@ PWAR-1, and \gls{MSRE} are the only critical MSRs ever operated.
   \label{fig:salt_properties}
 \end{figure}
 
+The melting point of FLiBe is 459 \textdegree C and the boiling point is 1430
+\textdegree C \cite{_flibe_2016}.
+
 \subsection{Layout \& Equipment}
 
 \begin{figure}[htpb]
@@ -93,24 +96,28 @@ PWAR-1, and \gls{MSRE} are the only critical MSRs ever operated.
 \end{figure}
 
 \subsubsection{Reactor vessel}
+\label{sec:reactor}
 
-A cutaway diagram of the \gls{MSRE} reactor is shown in \cref{fig:MSRE_reactor}. Fuel
-enters through the inlet and is distributed evenly along the outside of the
-reactor vessel in a small annular region of 1 inch
-width \cite{robertson_msre_1965}. The fluid fuel then flows turbulently 
-downward, cooling the reactor vessel to within 5\textdegree F of the entering 
-bulk salt temperature (1175 \textdegree F) \cite{robertson_msre_1965}. This 
-down-flowing region is typically referred to as the \textit{downcomer}. The 
-fuel salt is collected in the lower plenum (lower \textit{space}) of the 
-reactor where straightening vanes remove the salt's rotational motion. The salt 
-then flows upward through approximately 1140 0.4-inch by 1.2-inch fuel channels 
-that are formed by machining grooves in the sides of the graphite moderator 
-columns \cite{robertson_msre_1965}; these are the regions where fission occurs. 
-The graphite columns themselves have 2-inch by 2-inch square cross sections. 
-Nominal core volume is 90 ft$^3$, with 70 ft$^3$ occupied by graphite and 20 
-ft$^3$ occupied by fuel \cite{robertson_msre_1965}.
-After flowing through the core channels, the fuel collects in the upper plenum
-before exiting through the outlet.
+A cutaway diagram of the \gls{MSRE} reactor is shown in
+\cref{fig:MSRE_reactor}. Fuel enters through the inlet and is distributed evenly
+along the outside of the reactor vessel in a small annular region of 1 inch
+width \cite{robertson_msre_1965}. The fluid fuel then flows turbulently
+downward, cooling the reactor vessel to within 5\textdegree F of the entering
+bulk salt temperature (1175 \textdegree F) \cite{robertson_msre_1965}. This
+down-flowing region is typically referred to as the \textit{downcomer}. The fuel
+salt is collected in the lower plenum (lower \textit{space}) of the reactor
+where straightening vanes remove the salt's rotational motion. The salt then
+flows upward through approximately 1140 0.4-inch by 1.2-inch fuel channels that
+are formed by machining grooves in the sides of the graphite moderator columns
+\cite{robertson_msre_1965}; these are the regions where fission occurs.  The
+graphite columns themselves have 2-inch by 2-inch square cross sections.
+Nominal core volume is 90 ft$^3$, with 70 ft$^3$ occupied by graphite and 20
+ft$^3$ occupied by fuel \cite{robertson_msre_1965}.  After flowing through the
+core channels, the fuel collects in the upper plenum before exiting through the
+outlet. At 10 MW, 0.6 MW of heat is generated in the graphite, 1.4 MW heat is
+generated in the fuel outside the nominal core, and 8.0 MW is generated in the
+fuel within the core \cite{robertson_msre_1965}. I'm very curious how those
+numbers were determined.
 
 \begin{figure}[htpb]
   \centering
@@ -119,11 +126,28 @@ before exiting through the outlet.
   \label{fig:MSRE_reactor}
 \end{figure}
 
+Flow in fuel channels is laminar; because both the graphite and fueld have good
+thermal conductivities, the maximum temperature of the graphite is only about 60
+\textdegree F above the mixed mean temperature of the adjacent fuel. Average and
+maximum temperatures of graphite are 1255 \textdegree F and 1300 \textdegree F
+respectively. The temperature of the fuel leaving the hottest channel in the
+core is about 1260 \textdegree F. The fuel leaves the top of the reactor at 7
+psig and an average temperature of 1225 \textdegree F \cite{robertson_msre_1965}.
+
 Though studies were conducted with the \gls{MSRE} core surrounded by varying
 thicknesses of reflector \cite{haubenreich_msre_1964}, the experimental design
 was bare. This type of reactor design lends itself most naturally to a vacuum
 boundary condition for neutrons (zero incoming flux) like that used in
 \cite{dulla_neutron_2004}.
+
+\subsubsection{Heat Exchanger}
+\label{sec:heatx}
+
+As mentioned in \cref{sec:reactor}, the fuel salt enters the reactor at 1175
+\textdegree F and leaves at 1225 \textdegree F. In order to cool the fuel salt
+back down to its reactor inlet temperature, the coolant salt flows through the
+heat exchanger at 850 \gls{gpm} with inlet and outlet temperatures of 1025
+\textdegree F and 1100 \textdegree F respectively \cite{robertson_msre_1965}.
 
 \subsection{Reactivity considerations}
 
@@ -182,7 +206,7 @@ pipelines of the primary circuitry \cite{kophazi_development_2009}. It is not
 entirely clear how pipe cross sectional areas are handled, which would determine
 the transit times of individual pieces of fluid and subsequently the
 distribution of delayed neutron production in the external primary circuit. That
-is a piece that would likely need to be included in detailed ARFC accident
+is a piece that would likely need to be included in detailed \gls{ARFC} accident
 models.
 
 As pointed out in \cite{kophazi_development_2009}, it is not possible to solve
@@ -286,7 +310,7 @@ the power distribution from the coarse neutron grid to the fine thermal grid
 using another auxiliary program. This power distribution is then used as a heat
 source in the thermal code.
 
-\subsection{ARFC \gls{MSRE} Model Design Plan}
+\subsection{\gls{ARFC} \gls{MSRE} Model Design Plan}
 
 \begin{enumerate}
 \item Test whether \code{gmsh} can generate heterogeneous 3D mesh structure
@@ -305,11 +329,11 @@ source in the thermal code.
   able to perform coupled calculations for neutron density and
   temperature.
   \begin{itemize}
-    \item As a first pass, the fuel salt flow velocity can be a user input as 
+    \item As a first pass, the fuel salt flow velocity can be a user input as
             opposed to a non-linear variable that is a function of temperature.
-    \item However, the natural convection impacts on salt flow will 
-            significantly contribute to reactor dynamics and the ultimate goal 
-            will be to couple neutron flux and flow directly via 
+    \item However, the natural convection impacts on salt flow will
+            significantly contribute to reactor dynamics and the ultimate goal
+            will be to couple neutron flux and flow directly via
             temperature.
     \item We will need to decide whether neutron and temperature calculations
       should be performed on the same grid, and in transient calculations
@@ -368,7 +392,7 @@ Model's simplifications:
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_1.png}
-  \caption{Cammi's simplification of MSBR's geometry 
+  \caption{Cammi's simplification of MSBR's geometry
         \cite{cammi_multi-physics_2011}.}
   \label{fig:simlification}
 \end{figure}
@@ -393,13 +417,14 @@ Flow and heat transfer boundary conditions.
 \begin{figure}[htpb]
   \centering
   \includegraphics[max height=.5\textheight,max width=\textwidth,keepaspectratio]{Cammi_simplification_2.png}
-  \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron 
+  \caption{(b) Fluid flow and heat transfer boundary conditions; (c) neutron
         flux and DNP boundary conditions \cite{cammi_multi-physics_2011}.}
   \label{fig:simlification-2}
 \end{figure}
 
 \FloatBarrier
-
+\clearpage
+\printglossary[type=\acronymtype]
 \bibliographystyle{unsrt}
 \bibliography{MSR-design}
 \end{document}

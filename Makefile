@@ -4,7 +4,7 @@ INTERMEDIATES=$(NAME).bbl $(NAME).blg $(NAME).log $(NAME).out
 
 all: $(NAME).pdf
 
-$(NAME).pdf : $(NAME).tex 
+$(NAME).pdf : $(NAME).tex
 	pdflatex -shell-escape $(NAME)
 	bibtex $(NAME)
 	pdflatex -shell-escape $(NAME)
