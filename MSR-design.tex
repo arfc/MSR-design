@@ -147,7 +147,58 @@ As mentioned in \cref{sec:reactor}, the fuel salt enters the reactor at 1175
 \textdegree F and leaves at 1225 \textdegree F. In order to cool the fuel salt
 back down to its reactor inlet temperature, the coolant salt flows through the
 heat exchanger at 850 \gls{gpm} with inlet and outlet temperatures of 1025
-\textdegree F and 1100 \textdegree F respectively \cite{robertson_msre_1965}.
+\textdegree F and 1100 \textdegree F respectively \cite{robertson_msre_1965}. A
+summary of some of the important operating temperatures in the \gls{MSRE} is
+given in \cref{tab:important_temps}.
+
+\begin{table}[htpb]
+    \begin{center}
+      \begin{tabular}{l|c|c}
+        Material \& Location & Temp (\textdegree F) & Temp (K) \\
+        \hline \hline
+        Fuel salt reactor inlet/heatx outlet         & 1175 & 908  \\
+        Fuel salt reactor average outlet/heatx inlet & 1225 & 936  \\
+        Fuel salt reactor max outlet                 & 1260 & 955  \\
+        Coolant salt heatx inlet                     & 1025 & 825  \\
+        Coolant salt heatx outlet                    & 1100 & 866  \\
+        FLiBe boiling point                          & 2606 & 1703 \\
+        Graphite core average                        & 1255 & 953  \\
+        Graphite core maximum                        & 1300 & 978  \\
+      \end{tabular}
+    \end{center}
+    \caption{Some important operating temperatures in the \gls{MSRE}}
+    \label{tab:important_temps}
+\end{table}
+
+Based on the operating temperatures in \cref{tab:important_temps}, initial
+interpolation tables will range from 824 to 1055 K for the fuel salt
+temperature, and from 858 to 1088 K for the moderator temperature. The minimum
+fuel salt temperature is equal to the heat exchanger inlet coolant salt
+temperature, while the maximum fuel salt temperature is 100 K greater than the
+maximum fuel salt core outlet temperature. The moderator limits are 60
+\textdegree F greater than their fuel counterparts based on the experimental
+observation by Robertson that moderator temperatures are only ever about 60
+\textdegree F above the adjacent fuel. Reference temperatures for the fuel and
+moderator will be 922 K (the average of reactor inlet and outlet temperatures)
+and 953 K (graphite core average) respectively. These simulation set-points are
+summarized in \cref{tab:sim_temps}.
+
+\begin{table}[htpb]
+    \begin{center}
+      \begin{tabular}{l|c}
+        Serpent Simulation Temperatures & Value (K)\\
+        \hline \hline
+        Fuel minimum        & 824 \\
+        Fuel maximum        & 1055 \\
+        Fuel reference      & 922 \\
+        Moderator minimum   & 858 \\
+        Moderator maximum   & 1088 \\
+        Moderator reference & 953 \\
+      \end{tabular}
+    \end{center}
+    \caption{Relevant temperature parameters for Serpent simulations}
+    \label{tab:sim_temps}
+\end{table}
 
 \subsection{Reactivity considerations}
 
